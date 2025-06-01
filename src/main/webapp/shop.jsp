@@ -20,7 +20,7 @@
             content: "";
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.45); /* tạo lớp nền tối hơn */
+            background: rgba(0, 0, 0, 0.45);
             z-index: 1;
         }
 
@@ -29,7 +29,7 @@
             position: relative;
             z-index: 2;
             color: #ffffff;
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9); /* giúp chữ sáng và rõ */
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
         }
 
         .shop-banner h2 {
@@ -50,6 +50,8 @@
             gap: 40px;
             padding: 40px 60px;
             background: #f9f9f9;
+            padding-bottom: 100px; /* thêm khoảng trống để footer không đè lên */
+            min-height: 500px;
         }
 
         .product-card {
@@ -60,6 +62,7 @@
             padding: 20px;
             text-align: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 20px; /* tránh dính sát footer */
         }
 
         .product-card img {
@@ -111,17 +114,6 @@
     </style>
 </head>
 <body>
-<section id="header">
-    <a href="index.jsp"><img src="images/logo.png?v=2" class="logo" alt="Logo" width="100"></a>
-    <ul id="navbar">
-        <li><a href="index.jsp">Home</a></li>
-        <li><a class="active" href="shop">Shop</a></li>
-        <li><a href="blog.jsp">Blog</a></li>
-        <li><a href="about.jsp">About</a></li>
-        <li><a href="contact.jsp">Contact</a></li>
-        <li><a href="cart.jsp">Cart</a></li>
-    </ul>
-</section>
 
 <div class="shop-banner">
     <h2>#stayhome</h2>
@@ -135,7 +127,7 @@
             for (Product p : productList) {
     %>
     <div class="product-card">
-        <img src="images/products/<%= p.getImage() %>" alt="Product">
+        <img src="<%= request.getContextPath() %>/images/products/<%= p.getImage() %>" alt="Product">
 
         <h3><%= p.getName() %></h3>
         <p>$<%= p.getPrice() %></p>
@@ -145,9 +137,7 @@
             <input type="number" name="quantity" value="1" min="1">
             <button type="submit">Add to Cart</button>
         </form>
-
     </div>
-    
     <%
             }
         } else {
@@ -157,7 +147,8 @@
         }
     %>
 </div>
-    <div style="text-align: center; margin-top: 20px;">
+
+<div style="text-align: center; margin-top: 60px;">
     <a href="home" style="
         display: inline-block;
         padding: 10px 20px;

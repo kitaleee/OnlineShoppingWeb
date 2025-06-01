@@ -1,3 +1,4 @@
+<%@ page import="com.university.model.User" %>
 <section id="header">
     <a href="index.jsp"><img src="images/logo.png" class="logo" alt="Logo" width="100"></a>
     <ul id="navbar">
@@ -7,20 +8,23 @@
         <li><a href="about.jsp">About</a></li>
         <li><a href="contact.jsp">Contact</a></li>
         <li><a href="cart.jsp">Cart</a></li>
-      <%
-    User currentUser = (User) session.getAttribute("currentUser");
-    if (currentUser != null) {
-%>
-    <li><a href="profile.jsp">Profile</a></li>
-    <li><a href="logout">Logout (<%= currentUser.getName() %>)</a></li>
 
-            <% if ("admin".equals(currentUser.getRole())) { %>
-                <li><a href="admin">Admin</a></li>
+        <%
+            Object obj = session.getAttribute("currentUser");
+            if (obj != null && obj instanceof User) {
+                User user = (User) obj;
+        %>
+            <li><a href="profile.jsp">Profile</a></li>
+            <li><a href="logout">Logout (<%= user.getName() %>)</a></li>
+            <% if ("admin".equals(user.getRole())) { %>
+                <li><a href="admin/dashboard.jsp">Admin</a></li>
             <% } %>
         <%
             } else {
         %>
             <li><a href="login.jsp">Login</a></li>
-        <% } %>
+        <%
+            }
+        %>
     </ul>
 </section>

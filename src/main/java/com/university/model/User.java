@@ -10,6 +10,7 @@ public class User {
     private String role;
     private String dob;      
     private String gender;  
+    private boolean isActive;
     
 
    
@@ -23,16 +24,17 @@ public class User {
 }
 
     
-    public User(int id, String name, String email, String password, String role, String dob, String gender) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.dob = dob;
-        this.gender = gender;
-        
-    }
+    public User(int id, String name, String email, String password, String role, String dob, String gender, boolean isActive) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.role = role;
+    this.dob = dob;
+    this.gender = gender;
+    this.isActive = isActive;
+}
+
 
     // Getters and Setters
     public int getId() {
@@ -89,6 +91,13 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+    public boolean isActive() {
+    return isActive;
+}
+
+    public void setActive(boolean active) {
+        this.isActive = active;
     }
 
 }

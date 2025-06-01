@@ -101,4 +101,56 @@ public class OrderDAO {
     return orderList;
 }
 
+    public List<Order> getAllOrders() {
+    List<Order> list = new ArrayList<>();
+    String sql = "SELECT o.id, u.name AS user_name, p.name AS product_name, " +
+             "p.price AS product_price, p.image AS product_image, oi.quantity, " +
+             "(p.price * oi.quantity) AS total_price, o.order_date " +
+             "FROM orders o " +
+             "JOIN users u ON o.user_id = u.id " +
+             "JOIN order_items oi ON o.id = oi.order_id " +
+             "JOIN products p ON oi.product_id = p.id";
+
+
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            Order order = new Order();
+            order.setId(rs.getInt("id"));
+            order.setUserName(rs.getString("user_name"));
+            order.setProductName(rs.getString("product_name"));
+            order.setProductPrice(rs.getDouble("product_price"));
+            order.setQuantity(rs.getInt("quantity"));
+            order.setCreatedAt(rs.getTimestamp("order_date"));
+            list.add(order);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return list;
+}
+
+public void deleteOrderById(int orderId) {
+    String deleteOrderItems = "DELETE FROM order_items WHERE order_id = ?";
+    
+
+    try (Connection conn = DBConnection.getConnection()) {
+        // Xóa chi tiết đơn hàng trước
+        try (PreparedStatement ps1 = conn.prepareStatement(deleteOrderItems)) {
+            ps1.setInt(1, orderId);
+            ps1.executeUpdate();
+        }
+
+        
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+
+    
 }

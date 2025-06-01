@@ -6,26 +6,33 @@ import java.util.List;
 public class Order {
     private int id;
     private int userId;
-    private Timestamp orderDate;
-    private List<CartItem> items;
+    private String userName;
 
-    // ✅ Thêm các trường liên quan đến sản phẩm
     private String productName;
     private double productPrice;
     private String productImage;
+
     private int quantity;
+    private double totalPrice;
+
+    private Timestamp orderDate;
     private Timestamp createdAt;
+
+    private List<CartItem> items;
 
     public Order() {}
 
-    public Order(int id, int userId, Timestamp orderDate, List<CartItem> items) {
+    public Order(int id, int userId, String userName, String productName, double productPrice, int quantity, double totalPrice, Timestamp createdAt) {
         this.id = id;
         this.userId = userId;
-        this.orderDate = orderDate;
-        this.items = items;
+        this.userName = userName;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.quantity = quantity;
+        this.totalPrice = totalPrice;
+        this.createdAt = createdAt;
     }
 
-    // Getters & Setters gốc
     public int getId() {
         return id;
     }
@@ -42,23 +49,14 @@ public class Order {
         this.userId = userId;
     }
 
-    public Timestamp getOrderDate() {
-        return orderDate;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setOrderDate(Timestamp orderDate) {
-        this.orderDate = orderDate;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public List<CartItem> getItems() {
-        return items;
-    }
-
-    public void setItems(List<CartItem> items) {
-        this.items = items;
-    }
-
-    // ✅ Getters & Setters mới thêm
     public String getProductName() {
         return productName;
     }
@@ -91,11 +89,35 @@ public class Order {
         this.quantity = quantity;
     }
 
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Timestamp getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Timestamp orderDate) {
+        this.orderDate = orderDate;
+    }
+
     public Timestamp getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<CartItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<CartItem> items) {
+        this.items = items;
     }
 }

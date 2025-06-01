@@ -1,46 +1,29 @@
 package com.university.controller;
 
-import com.university.dao.ProductDAO;
-import com.university.model.Product;
+import com.university.dao.UserDAO;
+import com.university.model.User;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
 
-        ProductDAO dao = new ProductDAO();
-        List<Product> products = dao.getAllProducts();
-        req.setAttribute("products", products);
+        UserDAO dao = new UserDAO();
+        User user = dao.validateAdmin(email, password);
 
-        req.getRequestDispatcher("admin/dashboard.jsp").forward(req, resp);
-    }
-
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
-        String action = req.getParameter("action");
-
-        ProductDAO dao = new ProductDAO();
-
-        if ("add".equals(action)) {
-            String name = req.getParameter("name");
-            double price = Double.parseDouble(req.getParameter("price"));
-            String description = req.getParameter("description");
-            String image = req.getParameter("image");
-
-            Product p = new Product(0, name, price, description, image);
-            dao.insertProduct(p);
-        } else if ("delete".equals(action)) {
-            int id = Integer.parseInt(req.getParameter("id"));
-            dao.deleteProduct(id);
+        if (user != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("currentUser", user);
+            response.sendRedirect("admin-dashboard.jsp");
+        } else {
+            response.sendRedirect("login.jsp?error=adminfail");
         }
-
-        resp.sendRedirect("admin");
     }
 }

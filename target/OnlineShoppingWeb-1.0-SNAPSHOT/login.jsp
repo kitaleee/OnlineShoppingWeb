@@ -162,14 +162,18 @@
             </div>
 
             <div class="form-links">
-                <a href="#">Forgot your password?</a>
-            </div>
-
-            <div class="form-links">
                 <a href="#">Terms of Use</a> &nbsp;|&nbsp; <a href="#">Privacy Policy</a>
             </div>
-
+            
+            
             <div class="error" id="loginError" style="color:red;margin-top:10px;"></div>
+
+                <% if (request.getAttribute("error") != null) { %>
+                    <div class="error" style="color:red; margin-top:10px; font-weight:bold;">
+                        <%= request.getAttribute("error") %>
+                    </div>
+                <% } %>
+
         </form>
     </div>
 
