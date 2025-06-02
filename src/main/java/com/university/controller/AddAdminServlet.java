@@ -19,10 +19,14 @@ public class AddAdminServlet extends HttpServlet {
 
         User user = new User();
         user.setName(name);
+        
         user.setEmail(email);
+
         user.setPassword(password);
+
         user.setRole("admin");
-        user.setActive(true); // tự động kích hoạt
+
+        user.setActive(true); 
 
         UserDAO dao = new UserDAO();
         dao.insertUser(user);
