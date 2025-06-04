@@ -114,6 +114,20 @@
     </style>
 </head>
 <body>
+    <!-- Header -->
+<section id="header">
+    <a href="index.jsp"><img src="images/logo.png?v=2" class="logo" alt="Logo" width="100"></a>
+    <ul id="navbar">
+        <li><a href="home">Home</a></li>
+        <li><a class="active" href="shop">Shop</a></li>
+        <li><a href="blog.jsp">Blog</a></li>
+        <li><a href="about.jsp">About</a></li>
+        <li><a href="contact.jsp">Contact</a></li>
+        <li><a href="cart.jsp">Cart</a></li>
+    <li><a href="profile.jsp">Profile</a></li>
+            <li><a href="login.jsp">Login</a></li>
+    </ul>
+</section>
 
 <div class="shop-banner">
     <h2>#stayhome</h2>
